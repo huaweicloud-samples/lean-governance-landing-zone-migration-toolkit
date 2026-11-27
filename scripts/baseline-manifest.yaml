@@ -1,0 +1,39 @@
+# ============================================================================
+# 基线清单
+# ============================================================================
+# 描述每个账号收到的基线定制项。
+# 这份清单是盘点阶段的输入，也是接管与交接两个阶段的共同依据。
+# ============================================================================
+
+accounts:
+  - account_id: "0000000000000001"
+    name: "workload-dev-001"
+    organizational_unit: "Workloads/Development"
+    customizations:
+      - template: "baseline-network"
+        parameters:
+          vpc_cidr: "10.0.0.0/16"
+          subnet_cidr: "10.0.1.0/24"
+          log_retention_days: "30"
+        regions:
+          - "cn-north-4"
+
+  - account_id: "0000000000000002"
+    name: "workload-prod-001"
+    organizational_unit: "Workloads/Production"
+    customizations:
+      - template: "baseline-network"
+        parameters:
+          vpc_cidr: "10.1.0.0/16"
+          subnet_cidr: "10.1.1.0/24"
+          log_retention_days: "90"
+        regions:
+          - "cn-north-4"
+          - "cn-east-3"
+
+      - template: "region-guardrail"
+        parameters:
+          approved_regions: "cn-north-4,cn-east-3"
+        regions:
+          - "cn-north-4"
+          - "cn-east-3"
